@@ -5,6 +5,8 @@ import telefoneRouter from './routes/telefoneRouter';
 import petsRouter from './routes/petRouter';
 import produtoServicoRouter from './routes/produtoServicoRouter';
 import consumosRouter from './routes/consumoRouter';
+import dashboardRouter from './routes/dashboardRouter'; 
+
 
 // import produtosRouter from './routes/produtos';
 // import servicosRouter from './routes/servicos';
@@ -18,6 +20,7 @@ app.use('/clientes', clienteRouter);
 app.use('/telefones', telefoneRouter);
 app.use('/pets', petsRouter);
 app.use('/produtos-servicos', produtoServicoRouter);
+app.use('/dashboard', dashboardRouter);
 
 // app.use('/produtos', produtosRouter);
 // app.use('/servicos', servicosRouter);

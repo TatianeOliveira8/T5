@@ -4,7 +4,7 @@ import {
   listarPets,
   buscarPetPorId,
   listarPetsPorCliente,
-  listarPetsPorCpfCliente, // importa a função nova
+  listarPetsPorCpfCliente, 
   atualizarPet,
   deletarPet
 } from '../controllers/petController';
@@ -14,8 +14,8 @@ const router = Router();
 router.post('/', criarPet);
 router.get('/', listarPets);
 router.get('/cliente/:clienteId', listarPetsPorCliente);
-router.get('/cpf/:cpf', listarPetsPorCpfCliente); // rota nova para buscar por CPF
-router.get('/:id', buscarPetPorId);               // sempre depois das rotas mais específicas
+router.get('/cpf/:cpf', listarPetsPorCpfCliente); 
+router.get('/:id', buscarPetPorId);               
 router.put('/:id', atualizarPet);
 router.delete('/:id', deletarPet);
 

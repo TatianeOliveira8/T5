@@ -2,9 +2,8 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// backend/prisma/schema.prisma
 datasource db {
-  provider = "mysql" // Ou "sqlite"
+  provider = "mysql" 
   url      = env("DATABASE_URL") // URL do banco (configurada no .env)
 }
 
@@ -16,7 +15,7 @@ model Cliente {
   dataEmissaoCpf DateTime
   rg         String
   telefones  Telefone[]
-  pets       Pet[]   // sem onDelete aqui
+  pets       Pet[]   
   consumos   Consumo[]
 }
 
@@ -38,21 +37,22 @@ model Pet {
   genero     String
   clienteId  Int
   cliente    Cliente  @relation(fields: [clienteId], references: [id], onDelete: Cascade)
-  consumos   Consumo[]
   ativo      Boolean  @default(true)
 }
 
 
 
 model ProdutoServico {
-  id        Int                @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
+  codigo    String   @unique
   nome      String
   preco     Float
   tipo      TipoProdutoServico
-  ativo     Boolean            @default(true)
-  createdAt DateTime           @default(now())
+  ativo     Boolean  @default(true)
+  createdAt DateTime @default(now())
   consumos  Consumo[]
 }
+
 
 enum TipoProdutoServico {
   PRODUTO
@@ -63,13 +63,8 @@ enum TipoProdutoServico {
 model Consumo {
   id               Int              @id @default(autoincrement())
   data             DateTime         @default(now())
-
-  petId            Int
-  pet              Pet              @relation(fields: [petId], references: [id])
-
   produtoServicoId Int
   produtoServico   ProdutoServico   @relation(fields: [produtoServicoId], references: [id])
-
   clienteId        Int
   cliente          Cliente          @relation(fields: [clienteId], references: [id])
 }

@@ -23,7 +23,7 @@ export async function listarPets(req: Request, res: Response) {
   try {
     const pets = await prisma.pet.findMany({
       where: { ativo: true },
-      include: { cliente: true, consumos: true },
+      include: { cliente: true },
     });
 
     res.json(pets);
@@ -39,7 +39,7 @@ export async function buscarPetPorId(req: Request, res: Response) {
 
     const pet = await prisma.pet.findFirst({
       where: { id, ativo: true },
-      include: { cliente: true, consumos: true },
+      include: { cliente: true },
     });
 
     if (!pet) {
@@ -59,7 +59,6 @@ export async function listarPetsPorCliente(req: Request, res: Response) {
 
     const pets = await prisma.pet.findMany({
       where: { clienteId, ativo: true },
-      include: { consumos: true },
     });
 
     res.json(pets);
@@ -68,8 +67,7 @@ export async function listarPetsPorCliente(req: Request, res: Response) {
   }
 }
 
-// *** NOVO ***
-// Listar pets ativos pelo CPF do cliente
+// Listae pets ativos pelo CPF do cliente
 export async function listarPetsPorCpfCliente(req: Request, res: Response) {
   try {
     let { cpf } = req.params;
@@ -85,7 +83,7 @@ console.log(cpf);
 
     const pets = await prisma.pet.findMany({
       where: { clienteId: cliente.id, ativo: true },
-      include: { consumos: true },
+     
     });
 
     res.json(pets);

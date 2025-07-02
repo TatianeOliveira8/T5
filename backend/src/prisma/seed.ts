@@ -1,4 +1,3 @@
-
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -6,11 +5,12 @@ const prisma = new PrismaClient();
 async function main() {
   // Criar clientes com telefones
   for (let i = 1; i <= 10; i++) {
+    // Criar cliente
     const cliente = await prisma.cliente.create({
       data: {
         nome: `Cliente ${i}`,
         nomeSocial: `Social ${i}`,
-        cpf: `000.000.000-0${i}`,
+        cpf: `0000000000${i}`,
         dataEmissaoCpf: new Date('2022-01-01'),
         rg: `RG${i}`,
         telefones: {
@@ -27,7 +27,7 @@ async function main() {
         nome: `Pet ${i}`,
         tipo: i % 2 === 0 ? 'Cachorro' : 'Gato',
         raca: i % 2 === 0 ? 'Labrador' : 'Siames',
-        genero: i % 2 === 0 ? 'Macho' : 'Fêmea',
+        genero: i % 2 === 0 ? 'M' : 'F',
         clienteId: cliente.id
       }
     });
@@ -35,6 +35,7 @@ async function main() {
     // Criar produto
     const produto = await prisma.produtoServico.create({
       data: {
+        codigo: `P${i}`,
         nome: `Produto ${i}`,
         preco: 10.5 * i,
         tipo: 'PRODUTO'
@@ -44,26 +45,25 @@ async function main() {
     // Criar serviço
     const servico = await prisma.produtoServico.create({
       data: {
+        codigo: `S${i}`,
         nome: `Serviço ${i}`,
         preco: 15.5 * i,
         tipo: 'SERVICO'
       }
     });
 
-    // Criar consumo com o produto
+    // Criar consumo com o produto (sem petId)
     await prisma.consumo.create({
       data: {
-        petId: pet.id,
         clienteId: cliente.id,
         produtoServicoId: produto.id,
         data: new Date(`2025-07-${(i % 28) + 1}`)
       }
     });
 
-    // Criar consumo com o serviço
+    // Criar consumo com o serviço (sem petId)
     await prisma.consumo.create({
       data: {
-        petId: pet.id,
         clienteId: cliente.id,
         produtoServicoId: servico.id,
         data: new Date(`2025-07-${(i % 28) + 1}`)
