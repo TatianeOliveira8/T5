@@ -7,7 +7,7 @@ const colunas = [
   { key: 'tipo', label: 'Tipo' },
   { key: 'raca', label: 'Raça' },
   { key: 'genero', label: 'Gênero' },
-  { key: 'clienteNome', label: 'Cliente' } // cliente.nome vindo do backend
+  { key: 'clienteNome', label: 'Cliente' }, 
 ];
 
 const ListagemPets: React.FC = () => {
@@ -15,11 +15,13 @@ const ListagemPets: React.FC = () => {
 
   const carregarPets = async () => {
     const lista = await listarPets();
+
     // Mapear para o formato esperado no front (clienteNome)
     const petsFormatados = lista.map(p => ({
       ...p,
       clienteNome: p.cliente?.nome || 'Sem dono',
     }));
+
     setPets(petsFormatados);
   };
 
@@ -54,6 +56,7 @@ const ListagemPets: React.FC = () => {
           <span className="fw-bold">Novo Pet</span>
         </button>
       </div>
+
       <TabelaDados
         colunas={colunas}
         dados={pets}

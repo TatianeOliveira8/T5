@@ -36,19 +36,19 @@ const App = () => (
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/registro-consumo" element={<RegistroConsumo />} />
-          {/* Rotas de Clientes */}
+
           <Route path="/clientes" element={<ListagemClientes />} />
           <Route path="/clientes/cadastrar" element={<CadastroCliente />} />
           <Route path="/clientes/editar/:cpf" element={<AtualizarCliente />} />
-          {/* Rotas de Pets */}
+
           <Route path="/pets" element={<ListagemPets />} />
           <Route path="/pets/cadastrar" element={<CadastroPet />} />
           <Route path="/pets/editar/:id" element={<AtualizarPet />} />
-          {/* Rotas de Produtos */}
+
           <Route path="/produtos" element={<ListagemProdutos />} />
           <Route path="/produtos/cadastrar" element={<CadastroProduto />} />
           <Route path="/produtos/editar/:id" element={<AtualizarProduto />} />
-          {/* Rotas de Serviços */}
+
           <Route path="/servicos" element={<ListagemServicos />} />
           <Route path="/servicos/cadastrar" element={<CadastroServico />} />
           <Route path="/servicos/editar/:id" element={<AtualizarServico />} />

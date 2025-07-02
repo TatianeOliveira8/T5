@@ -9,7 +9,7 @@ const campos = [
     tipo: 'text',
     valor: '',
     placeholder: 'Digite o nome do produto',
-    obrigatorio: true
+    obrigatorio: true,
   },
   {
     nome: 'preco',
@@ -17,25 +17,36 @@ const campos = [
     tipo: 'number',
     valor: '',
     placeholder: '0.00',
-    obrigatorio: true
-  }
+    obrigatorio: true,
+  },
 ];
 
 const CadastroProduto: React.FC = () => {
   const aoEnviar = async (dados: Record<string, string>) => {
+    console.log('Dados recebidos no aoEnviar:', dados);
+
+    const precoNum = Number(dados.preco);
+    if (isNaN(precoNum)) {
+      alert('Preço inválido');
+      return;
+    }
+
     const produto = {
-      nome: dados.nome,
-      preco: parseFloat(dados.preco),
-      tipo: 'PRODUTO'
+      nome: dados.nome.trim(),
+      preco: precoNum,
+      tipo: 'PRODUTO' as const,
     };
 
+    console.log('Produto a ser enviado:', produto);
+
     try {
-      await criarProdutoServico(produto);
+      const resposta = await criarProdutoServico(produto);
+      console.log('Resposta do servidor:', resposta);
       alert('Produto cadastrado com sucesso!');
       window.location.hash = '#/produtos';
     } catch (error) {
       alert('Erro ao cadastrar produto.');
-      console.error(error);
+      console.error('Erro no cadastro:', error);
     }
   };
 

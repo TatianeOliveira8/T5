@@ -1,13 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import FormularioPadrao from '../../components/FormularioPadrao';
 import { buscarPetPorId, atualizarPet } from '../../services/petService';
-import { useParams } from 'react-router-dom'; // ou use hash params conforme seu roteamento
+import { useParams } from 'react-router-dom';
 
 const camposBase = [
-  { nome: 'novoNome', rotulo: 'Novo Nome do Pet', tipo: 'text', valor: '', placeholder: 'Deixe em branco para manter', obrigatorio: false },
-  { nome: 'novaRaca', rotulo: 'Nova Raça', tipo: 'text', valor: '', placeholder: 'Deixe em branco para manter', obrigatorio: false },
-  { nome: 'novoGenero', rotulo: 'Novo Gênero (M/F)', tipo: 'text', valor: '', placeholder: 'Deixe em branco para manter', obrigatorio: false },
-  { nome: 'novoTipo', rotulo: 'Novo Tipo do Pet', tipo: 'text', valor: '', placeholder: 'Deixe em branco para manter', obrigatorio: false }
+  {
+    nome: 'novoNome',
+    rotulo: 'Novo Nome do Pet',
+    tipo: 'text',
+    valor: '',
+    placeholder: 'Deixe em branco para manter',
+    obrigatorio: false,
+  },
+  {
+    nome: 'novaRaca',
+    rotulo: 'Nova Raça',
+    tipo: 'text',
+    valor: '',
+    placeholder: 'Deixe em branco para manter',
+    obrigatorio: false,
+  },
+  {
+    nome: 'novoGenero',
+    rotulo: 'Novo Gênero (M/F)',
+    tipo: 'text',
+    valor: '',
+    placeholder: 'Deixe em branco para manter',
+    obrigatorio: false,
+  },
+  {
+    nome: 'novoTipo',
+    rotulo: 'Novo Tipo do Pet',
+    tipo: 'text',
+    valor: '',
+    placeholder: 'Deixe em branco para manter',
+    obrigatorio: false,
+  },
 ];
 
 const AtualizarPet: React.FC = () => {
@@ -25,6 +53,7 @@ const AtualizarPet: React.FC = () => {
 
   const aoEnviar = async (dados: Record<string, string>) => {
     if (!pet) return;
+
     const nome = dados.novoNome || pet.nome;
     const raca = dados.novaRaca || pet.raca;
     const genero = dados.novoGenero || pet.genero;
@@ -51,7 +80,9 @@ const AtualizarPet: React.FC = () => {
             aoCancelar={aoCancelar}
             titulo="Atualizar Pet"
           />
-          <div className="text-muted mt-3 small">Nome do Responsável: {pet.cliente?.nome}</div>
+          <div className="text-muted mt-3 small">
+            Nome do Responsável: {pet.cliente?.nome}
+          </div>
         </div>
       </div>
     </div>

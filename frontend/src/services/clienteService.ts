@@ -1,4 +1,8 @@
-// Serviço para consumir a API REST de clientes
+export interface Telefone {
+  id?: number;
+  ddd: string;
+  numero: string;
+}
 
 export interface Cliente {
   id?: number;
@@ -7,8 +11,9 @@ export interface Cliente {
   cpf: string;
   rg: string;
   dataEmissaoCpf: string;
-  ddd: string;
-  numeroTelefone: string;
+  telefones: Telefone[];
+  pets?: any[];
+  consumos?: any[];
 }
 
 const API_URL = 'http://localhost:3001/clientes';
@@ -20,15 +25,24 @@ export async function listarClientes(): Promise<Cliente[]> {
   return resp.json();
 }
 
-// GET /clientes/:cpf
+// GET /clientes/cpf/:cpf
 export async function buscarCliente(cpf: string): Promise<Cliente> {
-  const resp = await fetch(`${API_URL}/${cpf}`);
+  const cpfLimpo = cpf.replace(/\D/g, '');
+  const resp = await fetch(`${API_URL}/cpf/${cpfLimpo}`);
   if (!resp.ok) throw new Error('Erro ao buscar cliente');
   return resp.json();
 }
 
 // POST /clientes
-export async function cadastrarCliente(cliente: Omit<Cliente, 'id'>): Promise<Cliente> {
+export async function cadastrarCliente(cliente: {
+  nome: string;
+  nomeSocial?: string;
+  cpf: string;
+  rg: string;
+  dataEmissaoCpf: string;
+  ddd: string;
+  numeroTelefone: string;
+}): Promise<Cliente> {
   const resp = await fetch(API_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -38,12 +52,13 @@ export async function cadastrarCliente(cliente: Omit<Cliente, 'id'>): Promise<Cl
   return resp.json();
 }
 
-// PUT /clientes/:cpf
+// PUT /clientes/cpf/:cpf
 export async function atualizarCliente(
   cpf: string,
   dados: { novoNome?: string; novoNomeSocial?: string }
 ): Promise<Cliente> {
-  const resp = await fetch(`${API_URL}/${cpf}`, {
+  const cpfLimpo = cpf.replace(/\D/g, '');
+  const resp = await fetch(`${API_URL}/cpf/${cpfLimpo}`, {  // corrigido aqui
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(dados),
@@ -52,8 +67,11 @@ export async function atualizarCliente(
   return resp.json();
 }
 
-// DELETE /clientes/:cpf
+// DELETE /clientes/cpf/:cpf
 export async function excluirCliente(cpf: string): Promise<void> {
-  const resp = await fetch(`${API_URL}/${cpf}`, { method: 'DELETE' });
+  const cpfLimpo = cpf.replace(/\D/g, '');
+  const resp = await fetch(`${API_URL}/cpf/${cpfLimpo}`, {  // corrigido aqui
+    method: 'DELETE',
+  });
   if (!resp.ok) throw new Error('Erro ao excluir cliente');
 }

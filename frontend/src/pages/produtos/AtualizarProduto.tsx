@@ -8,7 +8,6 @@ import {
 const AtualizarProduto: React.FC = () => {
   const [produto, setProduto] = useState<any | null>(null);
 
-  // Extrai o ID da URL
   const id = Number(window.location.hash.split('/').pop());
 
   useEffect(() => {
@@ -28,7 +27,7 @@ const AtualizarProduto: React.FC = () => {
       tipo: 'text',
       valor: produto?.nome || '',
       placeholder: 'Deixe em branco para manter',
-      obrigatorio: false
+      obrigatorio: false,
     },
     {
       nome: 'novoPreco',
@@ -36,8 +35,8 @@ const AtualizarProduto: React.FC = () => {
       tipo: 'number',
       valor: produto?.preco || '',
       placeholder: 'Deixe em branco para manter',
-      obrigatorio: false
-    }
+      obrigatorio: false,
+    },
   ];
 
   const aoEnviar = async (dados: Record<string, string>) => {
@@ -48,7 +47,7 @@ const AtualizarProduto: React.FC = () => {
       await atualizarProdutoServico(id, {
         nome,
         preco,
-        tipo: 'PRODUTO'
+        tipo: 'PRODUTO',
       });
 
       alert('Produto atualizado com sucesso!');

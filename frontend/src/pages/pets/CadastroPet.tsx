@@ -1,6 +1,7 @@
 import React from 'react';
 import FormularioPadrao from '../../components/FormularioPadrao';
 import { criarPet } from '../../services/petService';
+import { buscarCliente } from '../../services/clienteService'; // importe o serviço correto
 
 const campos = [
   { nome: 'nome', rotulo: 'Nome do Pet', tipo: 'text', valor: '', placeholder: 'Digite o nome do pet', obrigatorio: true },
@@ -13,12 +14,12 @@ const campos = [
 const CadastroPet: React.FC = () => {
   const aoEnviar = async (dados: Record<string, string>) => {
     try {
-      // Limpa CPF removendo tudo que não for número
       const cpfLimpo = dados.cpfResponsavel.replace(/\D/g, '');
 
-      // Busca cliente pelo CPF limpo
-      const clienteId = await buscarClienteIdPorCpf(cpfLimpo);
-      if (!clienteId) {
+      // Busca o cliente usando o serviço correto
+      const cliente = await buscarCliente(cpfLimpo);
+
+      if (!cliente || !cliente.id) {
         alert('Cliente não encontrado para o CPF informado.');
         return;
       }
@@ -28,7 +29,7 @@ const CadastroPet: React.FC = () => {
         raca: dados.raca,
         genero: dados.genero,
         tipo: dados.tipo,
-        clienteId
+        clienteId: cliente.id,
       };
 
       await criarPet(petData);
@@ -43,19 +44,6 @@ const CadastroPet: React.FC = () => {
   const aoCancelar = () => {
     window.location.hash = '#/pets';
   };
-
-  // Função para buscar cliente pelo CPF limpo
-  async function buscarClienteIdPorCpf(cpfLimpo: string): Promise<number | null> {
-    try {
-      const res = await fetch(`http://localhost:3001/pets/cpf/${cpfLimpo}`);
-      if (!res.ok) return null;
-      const cliente = await res.json();
-      if(cliente.length === 0) return null; 
-      return cliente[0].id ?? null;
-    } catch {
-      return null;
-    }
-  }
 
   return (
     <div className="container py-4">

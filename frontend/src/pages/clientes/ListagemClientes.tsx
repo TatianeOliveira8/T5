@@ -5,16 +5,29 @@ import { listarClientes, excluirCliente, Cliente } from '../../services/clienteS
 const colunas = [
   { key: 'nome', label: 'Nome' },
   { key: 'nomeSocial', label: 'Nome Social' },
-  { key: 'cpf', label: 'CPF' }
+  { key: 'cpfFormatado', label: 'CPF' }, // mudou para cpfFormatado
 ];
 
+// Função para formatar CPF: 000.000.000-00
+function formatarCpf(cpf: string): string {
+  const cpfLimpo = cpf.replace(/\D/g, '');
+  return cpfLimpo.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+}
+
 const ListagemClientes: React.FC = () => {
-  const [clientes, setClientes] = useState<Cliente[]>([]);
+  const [clientes, setClientes] = useState<any[]>([]); // any para injetar campo extra
 
   const carregarClientes = () => {
     listarClientes()
       .then(data => {
-        const ordenados = data.sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
+        const comCpfFormatado = data.map(cliente => ({
+          ...cliente,
+          nomeSocial: cliente.nomeSocial || '-', // caso vazio
+          cpfFormatado: formatarCpf(cliente.cpf),
+        }));
+
+        const ordenados = comCpfFormatado.sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
+
         setClientes(ordenados);
       })
       .catch(console.error);
@@ -57,6 +70,7 @@ const ListagemClientes: React.FC = () => {
           <span className="fw-bold">Novo Cliente</span>
         </button>
       </div>
+
       <TabelaDados
         colunas={colunas}
         dados={clientes}

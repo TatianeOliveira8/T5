@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import TabelaDados from '../../components/TabelaDados';
-import {
-  listarPorTipo,
-  deletarProdutoServico
-} from '../../services/produtoServicoService';
+import { listarPorTipo, deletarProdutoServico } from '../../services/produtoServicoService';
 
 const colunas = [
   { key: 'id', label: 'ID' },
   { key: 'nome', label: 'Nome' },
-  { key: 'preco', label: 'Preço (R$)' }
+  { key: 'preco', label: 'Preço (R$)' },
 ];
 
 const ListagemProdutos: React.FC = () => {
@@ -50,6 +47,7 @@ const ListagemProdutos: React.FC = () => {
           <span className="fw-bold">Novo Produto</span>
         </button>
       </div>
+
       <TabelaDados
         colunas={colunas}
         dados={produtos}

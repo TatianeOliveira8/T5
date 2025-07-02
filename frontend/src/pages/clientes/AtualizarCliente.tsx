@@ -11,7 +11,9 @@ const AtualizarCliente: React.FC = () => {
   useEffect(() => {
     console.log('CPF recebido:', cpf);
     if (!cpf) return;
+
     setCarregando(true);
+
     buscarCliente(cpf)
       .then(dados => setCliente(dados))
       .catch(() => alert('Erro ao carregar cliente'))
@@ -46,6 +48,7 @@ const AtualizarCliente: React.FC = () => {
         novoNome: dados.novoNome || cliente.nome,
         novoNomeSocial: dados.novoNomeSocial || cliente.nomeSocial || '',
       });
+
       alert('Cliente atualizado com sucesso!');
       window.location.hash = '#/clientes';
     } catch {
