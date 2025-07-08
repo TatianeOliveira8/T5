@@ -92,6 +92,18 @@ Para iniciar o backend:
 ```bash
 npm run dev
 ```
+OBS: Verifique se a porta 3001 está livre. Se não estiver, finalize o processo com:
+
+Linux:
+```
+lsof -i :3001        # Veja o PID na coluna "PID"
+kill -9 PID          # Substitua PID pelo número que apareceu
+```
+Windows:
+```
+netstat -ano | findstr :3001   # Pegue o número do PID na última coluna
+taskkill /PID PID /F           # Substitua PID pelo número que apareceu
+```
 
 ---
 
@@ -103,5 +115,12 @@ Após configurar corretamente o `.env`, execute:
 npx prisma migrate dev --name init --schema=src/prisma/schema.prisma
 npx prisma db seed --schema=src/prisma/schema.prisma
 ```
+OBS: Rode os comandos acima dentro da pasta backend
 
 ---
+
+### Portas utilizadas:
+
+- Frontend: http://localhost:3000  
+- Backend: http://localhost:3001
+
