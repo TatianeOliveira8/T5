@@ -1,47 +1,81 @@
-# Como rodar o projeto completo (front + back)
+
+# Como rodar o projeto completo (Front + Back)
+
+> ⚠️ **Atenção sobre a versão do Node.js:**  
+> O projeto foi testado com **Node 20.x no Windows**, mas **recomendamos usar exatamente a versão 16.x no Ubuntu/Linux** para evitar erros de compatibilidade.
+---
 
 ### 1. Rodar o Frontend (React + TypeScript)
+
 ```bash
 cd frontend
 npm install
 npm start
-````
-### 2. Configurar banco de dados 
+```
 
-* Crie um arquivo `.env` na pasta `backend` com a conexão do banco, por exemplo:
+---
+
+### 2. Configurar o Banco de Dados
+
+Crie um arquivo `.env` na pasta `backend` com a variável `DATABASE_URL`, por exemplo:
 
 ```
-DATABASE_URL="mysql://usuario:senha@localhost:3306/seubanco"
+DATABASE_URL=mysql://usuario:senha@localhost:3306/seubanco
 ```
+
+---
 
 ### 3. Rodar o Backend (Node + Prisma)
 
 ```bash
 cd backend
-npm install        
-```
-### caso nao tenha rodado o generate prisma
-```bash
-npx prisma generate --schema=src/prisma/schema.prisma        
-```
-### inicializar backend
-```bash
-npm run dev        
+npm install
 ```
 
-### 4. Criar as tabelas e popular dados fictícios (após configurar o .env)
+Caso ainda não tenha rodado o generate do Prisma:
 
 ```bash
-npx prisma migrate dev --name init --schema=src/prisma/schema.prisma 
-npx prisma db seed --schema=./src/prisma/schema.prisma
+npx prisma generate --schema=src/prisma/schema.prisma
 ```
 
-### Resumo para rodar tudo na sequência
+Para iniciar o backend:
 
 ```bash
-cd frontend && npm install && npm start
-cd backend && npm install && npm run dev
-# configurar .env no backend com DATABASE_URL
+npm run dev
+```
+
+---
+
+### 4. Criar as tabelas e popular dados fictícios
+
+Após configurar corretamente o `.env`, execute:
+
+```bash
 npx prisma migrate dev --name init --schema=src/prisma/schema.prisma
 npx prisma db seed --schema=src/prisma/schema.prisma
 ```
+
+---
+
+## ✅ Resumo para rodar tudo na sequência
+
+```bash
+# FRONTEND
+cd frontend
+npm install
+npm start
+
+# BACKEND
+cd backend
+npm install
+# configurar .env com DATABASE_URL
+npx prisma generate --schema=src/prisma/schema.prisma
+npx prisma migrate dev --name init --schema=src/prisma/schema.prisma
+npx prisma db seed --schema=src/prisma/schema.prisma
+npm run dev
+```
+
+---
+
+Pronto pra colar no seu README.md.
+Se precisar adaptar pra outra estrutura de pastas ou outro banco, é só falar.
