@@ -76,6 +76,3 @@ npm run dev
 ```
 
 ---
-
-Pronto pra colar no seu README.md.
-Se precisar adaptar pra outra estrutura de pastas ou outro banco, é só falar.
