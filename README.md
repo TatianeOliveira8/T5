@@ -124,3 +124,10 @@ OBS: Rode os comandos acima dentro da pasta backend
 - Frontend: http://localhost:3000  
 - Backend: http://localhost:3001
 
+### Tecnologias usadas:
+
+- Frontend: React 19 + TypeScript, React Router DOM 7, Bootstrap 5, Create React App
+
+- Backend: Node.js 16 (recomendado no Linux se outras versões derem problema), Express, Prisma, MySQL
+
+
