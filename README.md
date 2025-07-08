@@ -2,8 +2,57 @@
 # Como rodar o projeto completo (Front + Back)
 
 > ⚠️ **Atenção sobre a versão do Node.js:**  
-> O projeto foi testado com **Node 20.x no Windows**, mas **recomendamos usar exatamente a versão 16.x no Ubuntu/Linux** para evitar erros de compatibilidade.
+> O projeto foi testado com **Node 22.x no Windows**, mas **recomendo usar exatamente a versão 16.x no Ubuntu/Linux** para evitar erros de compatibilidade.
+
+> OBS: Se não funcionar, tente a versão 18.x. E, caso ainda não funcione, apague o package-lock.json, a pasta node_modules e rode npm install novamente.
+
 ---
+
+Para garantir o ambiente correto, use o nvm (Node Version Manager):
+
+**Como usar o nvm para trocar a versão do Node:**
+
+**Instalar o nvm (se ainda não tiver):**
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
+```
+
+
+Depois, feche e abra o terminal ou rode:
+
+```bash
+source ~/.bashrc
+```
+
+2. **Verificar se o nvm está instalado:**
+
+```bash
+nvm --version
+```
+
+3. **Instalar a versão desejada do Node (exemplo: 16):**
+
+```bash
+nvm install 16
+```
+
+4. **Usar a versão instalada:**
+
+```bash
+nvm use 16
+```
+
+5. **Definir a versão padrão para novos terminais:**
+
+```bash
+nvm alias default 16
+```
+
+6. **Verificar a versão ativa do Node:**
+
+```bash
+node -v
+```
 
 ### 1. Rodar o Frontend (React + TypeScript)
 
@@ -53,26 +102,6 @@ Após configurar corretamente o `.env`, execute:
 ```bash
 npx prisma migrate dev --name init --schema=src/prisma/schema.prisma
 npx prisma db seed --schema=src/prisma/schema.prisma
-```
-
----
-
-## ✅ Resumo para rodar tudo na sequência
-
-```bash
-# FRONTEND
-cd frontend
-npm install
-npm start
-
-# BACKEND
-cd backend
-npm install
-# configurar .env com DATABASE_URL
-npx prisma generate --schema=src/prisma/schema.prisma
-npx prisma migrate dev --name init --schema=src/prisma/schema.prisma
-npx prisma db seed --schema=src/prisma/schema.prisma
-npm run dev
 ```
 
 ---
