@@ -6,16 +6,7 @@ cd frontend
 npm install
 npm start
 ````
-
-### 2. Rodar o Backend (Node + Prisma)
-
-```bash
-cd backend
-npm install        
-npm run dev        
-```
-
-### 3. Configurar banco de dados
+### 2. Configurar banco de dados 
 
 * Crie um arquivo `.env` na pasta `backend` com a conexão do banco, por exemplo:
 
@@ -23,15 +14,27 @@ npm run dev
 DATABASE_URL="mysql://usuario:senha@localhost:3306/seubanco"
 ```
 
-### 4. Criar as tabelas e popular dados fictícios
+### 3. Rodar o Backend (Node + Prisma)
 
 ```bash
-npx prisma migrate dev --name init  
-npx prisma db seed --schema=./src/prisma/schema.prisma
+cd backend
+npm install        
+```
+### caso nao tenha rodado o generate prisma
+```bash
+npx prisma generate --schema=src/prisma/schema.prisma        
+```
+### inicializar backend
+```bash
+npm run dev        
 ```
 
+### 4. Criar as tabelas e popular dados fictícios (após configurar o .env)
 
----
+```bash
+npx prisma migrate dev --name init --schema=src/prisma/schema.prisma 
+npx prisma db seed --schema=./src/prisma/schema.prisma
+```
 
 ### Resumo para rodar tudo na sequência
 
@@ -39,6 +42,6 @@ npx prisma db seed --schema=./src/prisma/schema.prisma
 cd frontend && npm install && npm start
 cd backend && npm install && npm run dev
 # configurar .env no backend com DATABASE_URL
-npx prisma migrate dev --name init
-npx prisma db seed --schema=./src/prisma/schema.prisma
+npx prisma migrate dev --name init --schema=src/prisma/schema.prisma
+npx prisma db seed --schema=src/prisma/schema.prisma
 ```
